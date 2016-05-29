@@ -157,6 +157,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  jekyll
   jekyll-geo-pattern
   jekyll-github-metadata
   jekyll-paginate
@@ -164,4 +165,4 @@ DEPENDENCIES
   rough
 
 BUNDLED WITH
-   1.12.4
+   1.12.5
