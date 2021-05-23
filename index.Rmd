@@ -1,0 +1,176 @@
+---
+title: "Blake Holmes CV"
+author: Blake Holmes
+date: "`r Sys.Date()`"
+params:
+  is_pdf:
+    value: false
+output:
+  pagedown::html_resume:
+    css: [ 'dd_cv.css', 'custom.css','resume']
+    self_contained: true
+#knit: pagedown::chrome_print      
+---
+
+```{r metathis, echo=FALSE}
+library(metathis)
+meta() %>%
+  meta_name("github-repo" = "bjholmes23") %>% 
+  meta_social(
+    title = "Blake Holmes CV",
+    description = paste(
+      "Blake Holmes CV"
+    ),
+    url = "https://blakeholmes.com/index.html",
+    og_type = "website",
+    og_author = "Blake Holmes"
+  )
+
+
+```
+<!-- all links open as new tab -->
+
+<base target="_blank">
+<!-- inicio academic icons -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"> <!-- final academic icons -->
+
+<!-- inicio font awesome -->
+
+```{=html}
+<script src="https://kit.fontawesome.com/1f72d6921a.js" crossorigin="anonymous"></script>
+```
+<!-- final font awesome -->
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  results='asis',
+  echo = FALSE
+)
+
+library(magrittr) # For the pipe
+source("cv_printing_functions.r")
+
+# Read in all data and initialize a CV printer object
+CV <- create_CV_object(
+  data_location = "https://docs.google.com/spreadsheets/d/14nK5Bao8oQrFt1BYpwGn7Wie-AnGl2JRhN2sUcS0_Mg/edit?usp=sharing",  
+  is_pdf = params$is_pdf
+)
+
+CV$entries_data <- CV$entries_data %>% dplyr::filter(in_resume == TRUE)
+
+```
+
+```{r}
+# When in pdf export mode the little dots are unaligned, so fix that with some conditional CSS.
+if(params$is_pdf) {
+    cat("
+<style>
+:root{
+  --decorator-outer-offset-left: -6.5px;
+}
+</style>")
+}
+```
+
+# Aside
+
+```{r}
+ if(params$is_pdf){
+   cat("<i class='fas fa-download'></i> [View online](https://blakeholmes.com/)")
+ } else {
+   cat("<i class='fas fa-download'></i> [Download as PDF](https://blakeholmes.com/HolmesB-resume.pdf)")
+ }
+```
+
+
+## Contact {#contact}
+
+- <i class="fa fa-phone" style="font-size: 13px;"></i> +1 571 491 1905
+
+- <i class="fa fa-home"></i> [blakeholmes.com](https://blakeholmes.com)
+
+- <i class="fa fa-envelope"></i> [bjholmes`@`pm.me](mailto:bjholmes@pm.me)
+
+- <i class="fa fa-github"></i> [Git`@`bjholmes23](https://github.com/bjholmes23)
+
+- <i class="fa fa-linkedin"  style="font-size: 14px;"></i> [holmesblake](https://www.linkedin.com/in/holmesblake/)
+
+## Certifications {#teachingr}
+
+<i class="fas fa-flag-usa"></i> US Top Secret Clearance
+
+<i class="fas fa-project-diagram"></i> Certified Agile Scrummaster
+
+## Languages {#languages}
+
+**English:** Native
+
+**Chinese:** Intermediate
+
+```{echo, echo=FALSE}
+<i class="fab fa-r-project"></i> `R`
+
+<i class="fab fa-python"></i> `Python`
+
+<i class="fas fa-database"></i> `SQL`
+
+<i class="fab fa-windows"></i> `Powershell`
+
+<i class="fab fa-js"></i> `JS/NodeJS`
+
+<i class="fab fa-php"></i> `Laravel`
+
+<i class="fab fa-docker"></i> `Docker`
+
+<i class="fab fa-aws"></i> `AWS`
+
+<i class="fab fa-ubuntu"></i></i> `Ubuntu`}
+
+```
+
+## Tech Skills {#skills}
+
+```{r}
+CV %>% print_skill_bars()
+```
+
+# Main
+
+## Blake Jungé Holmes {#title}
+
+### aspiring data scientist, software developer, technology leader
+
+<div class="intro">
+```{r}
+CV %>% print_text_block("opening_statement")
+```
+</div>
+
+## Current Employment {data-icon="suitcase"}
+
+```{r}
+CV %<>% print_section('current_employment')
+```
+
+## Education {data-icon="graduation-cap" data-concise="true"}
+
+```{r}
+CV %<>% print_section('education')
+```
+
+## Previous Employment {data-icon="laptop"}
+
+```{r}
+CV %<>% print_section('employment')
+```
+
+
+```{r}
+
+## Personal Projects {data-icon="chalkboard-teacher"}
+
+#Here is a collection of side projects I've worked on. These were primarily used as learning exercises. 
+
+#CV %<>% print_section('projects')
+```
