@@ -1,0 +1,137 @@
+---
+title: "Terrt John  CV"
+author: Terri John
+date: "`r Sys.Date()`"
+params:
+  is_pdf:
+    value: false
+output:
+  pagedown::html_resume:
+    css: [ 'dd_cv.css', 'custom.css','resume']
+    self_contained: true
+knit: pagedown::chrome_print      
+---
+
+```{r metathis, echo=FALSE}
+library(metathis)
+meta() %>%
+  meta_social(
+    title = "Terri John CV CV",
+    description = paste(
+      "Terri John CV"
+    ),
+    og_author = "Terri John"
+  )
+
+
+```
+<!-- all links open as new tab -->
+
+<base target="_blank">
+<!-- inicio academic icons -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"> <!-- final academic icons -->
+
+<!-- inicio font awesome -->
+
+```{=html}
+<script src="https://kit.fontawesome.com/1f72d6921a.js" crossorigin="anonymous"></script>
+```
+<!-- final font awesome -->
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  results='asis',
+  echo = FALSE
+)
+
+library(magrittr) # For the pipe
+source("cv_printing_functions.r")
+
+# Read in all data and initialize a CV printer object
+CV <- create_CV_object(
+  data_location = "https://docs.google.com/spreadsheets/d/1Z3oEUMwHDw4OW_w1Mr6j5HvFyniOWKn78lETdwkorN8/edit?usp=sharing",  
+  is_pdf = params$is_pdf
+)
+
+CV$entries_data <- CV$entries_data %>% dplyr::filter(in_resume == TRUE)
+
+```
+
+```{r}
+# When in pdf export mode the little dots are unaligned, so fix that with some conditional CSS.
+if(params$is_pdf) {
+    cat("
+<style>
+:root{
+  --decorator-outer-offset-left: -6.5px;
+}
+</style>")
+}
+```
+
+# Aside
+
+## Contact {#contact}
+
+- <i class="fa fa-phone" style="font-size: 13px;"></i> +1 303-709-3032
+
+- <i class="fa fa-envelope"></i> [tjohn07`@`gmail.com](mailto:tjohn07@gmail.com)
+
+- <i class="fa fa-linkedin"  style="font-size: 14px;"></i> [terri-john](https://www.linkedin.com/in/terri-john-20247035/)
+
+## Certifications {#teachingr}
+
+<i class="fas fa-flag-usa"></i> US Top Secret Clearance
+
+<i class="fab fa-windows"></i></i> Microsoft Office Specialist Certification
+
+## Languages {#languages}
+
+```{r}
+CV %>% print_skill_bars()
+```
+
+## Technical Skills
+
+Computer: Mac and PC, Microsoft Office Suite (Excel, Powerpoint, Outlook, Word, Teams, etc), Google Suite, Publisher, Adobe Pro, Harvest (project tracking), Xero (accounting), BambooHR (HRIS)
+
+# Main
+
+## Terri John {#title}
+
+### consummate professional, internationally savvy  
+
+<div class="intro">
+```{r}
+CV %>% print_text_block("opening_statement")
+```
+</div>
+
+## Current Employment {data-icon="suitcase"}
+
+```{r}
+CV %<>% print_section('current_employment')
+```
+
+## Education {data-icon="graduation-cap" data-concise="true"}
+
+```{r}
+CV %<>% print_section('education')
+```
+
+## Previous Employment {data-icon="laptop"}
+
+```{r}
+CV %<>% print_section('employment')
+```
+
+
+```{r}
+
+## Personal Projects {data-icon="chalkboard-teacher"}
+
+#Here is a collection of side projects I've worked on. These were primarily used as learning exercises. 
+
+#CV %<>% print_section('projects')
+```

@@ -79,7 +79,7 @@ if(params$is_pdf) {
  if(params$is_pdf){
    cat("<i class='fas fa-download'></i> [View online](https://blakeholmes.com/)")
  } else {
-   cat("<i class='fas fa-download'></i> [Download as PDF](https://blakeholmes.com/HolmesB-resume.pdf)")
+   cat("<i class='fas fa-download'></i> [Download as PDF](HolmesB-resume.pdf)")
  }
 ```
 
